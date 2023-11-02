@@ -8,12 +8,12 @@ class CustomRowServiceContainer extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.name,
-    required this.image,
+    required this.id,
   });
 
   final void Function() onPressed;
   final String name;
-  final String image;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +24,7 @@ class CustomRowServiceContainer extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.1),
-
-
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ]
       ),
@@ -37,11 +35,11 @@ class CustomRowServiceContainer extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              image,
-              width: 32.w,
-              height: 32.h,
-              fit: BoxFit.contain,
+            Text(
+              "$id",
+              style: Styles.textStyle18.copyWith(
+                fontWeight: FontWeight.w400,
+              ),
             ),
             SizedBox(
               width: SizeConfig.width(context, 8),

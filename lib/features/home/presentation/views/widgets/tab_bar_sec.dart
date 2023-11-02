@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_task/constant.dart';
 import 'package:test_task/core/utils/resposive_size_config.dart';
+import 'package:test_task/core/widgets/custom_error_widget.dart';
 import 'package:test_task/features/home/presentation/manager/home_cubit/home_cubit.dart';
+import 'package:test_task/features/home/presentation/views/widgets/shimmer_users.dart';
 import 'package:test_task/features/home/presentation/views/widgets/tab_bar_container.dart';
 
 class TabBarSec extends StatelessWidget {
@@ -11,10 +13,7 @@ class TabBarSec extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+    return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
         return Container(
@@ -40,6 +39,7 @@ class TabBarSec extends StatelessWidget {
                     itemBuilder: (context, index) => TabBarContainer(
                       onTap: () {
                         cubit.changeTabBar(index);
+                        cubit.getUsers();
                       },
                       name: cubit.tabBar[index],
                       color: cubit.tabBarIndex == index
@@ -55,7 +55,12 @@ class TabBarSec extends StatelessWidget {
                     itemCount: cubit.tabBar.length,
                   ),
                 ),
-                cubit.viewDisplayed[cubit.tabBarIndex],
+                if (state is HomeUsersLoading && cubit.tabBarIndex ==0 )
+                  const UsersContainerShimmer(),
+                if (state is HomeUsersSuccess || cubit.tabBarIndex !=0 )
+                  cubit.viewDisplayed[cubit.tabBarIndex],
+                if(state is HomeUsersFailure && cubit.tabBarIndex ==0 )
+                  const CustomErrorWidget(errorMessage: "Failed to load data. Please try again."),
               ],
             ),
           ),

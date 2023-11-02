@@ -4,21 +4,23 @@ import 'package:test_task/core/utils/resposive_size_config.dart';
 import 'package:test_task/core/utils/styles.dart';
 import 'package:test_task/core/widgets/custom_row_service_container.dart';
 import 'package:test_task/core/widgets/custom_text_button.dart';
-import 'package:test_task/features/home/data/models/categories_model.dart';
+import 'package:test_task/features/home/presentation/manager/home_cubit/home_cubit.dart';
 
-class CategoriesSec extends StatelessWidget {
-  const CategoriesSec({super.key});
+
+class UsersSec extends StatelessWidget {
+  const UsersSec({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    var cubit =HomeCubit.get(context);
+    return Column(
       children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 16.h),
           child: Row(
             children: [
               Text(
-                "Categories View",
+                "Users View",
                 style: Styles.textStyle14.copyWith(
                   fontWeight: FontWeight.w400,
                 ),
@@ -42,8 +44,8 @@ class CategoriesSec extends StatelessWidget {
           itemBuilder: (context, index) {
             return CustomRowServiceContainer(
               onPressed: () {},
-              name: CategoriesModel.categoriesList[index].name,
-              image: CategoriesModel.categoriesList[index].image,
+              name: cubit.usersList[index].name,
+              id: cubit.usersList[index].id,
             );
           },
           separatorBuilder: (context, index) {
@@ -51,7 +53,7 @@ class CategoriesSec extends StatelessWidget {
               height: SizeConfig.height(context, 16),
             );
           },
-          itemCount: CategoriesModel.categoriesList.length,
+          itemCount: cubit.usersList.length,
         ),
       ],
     );
