@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:test_task/core/utils/resposive_size_config.dart';
 import 'package:test_task/features/home/presentation/views/widgets/banners_sec.dart';
+import 'package:test_task/features/home/presentation/views/widgets/first_tab_bar.dart';
 import 'package:test_task/features/home/presentation/views/widgets/tab_bar_sec.dart';
 import 'package:test_task/features/home/presentation/views/widgets/text_sec.dart';
 
@@ -26,7 +27,9 @@ class HomeViewBody extends StatelessWidget {
           SizedBox(
             height: SizeConfig.height(context, 32),
           ),
-          const TabBarSec(),
+          const SizedBox(
+            height: 1000,
+            child: FirstTabBar(),),
           SizedBox(
             height: SizeConfig.height(context, 16),
           ),
